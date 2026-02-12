@@ -1,190 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'SB Admin 2'; ?></title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><?= $title; ?></title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
+    <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
+
     <style>
-        body { font-family: 'Nunito', sans-serif; background-color: #f8f9fc; overflow-x: hidden; }
-        
-        /* Sidebar Custom */
-        .sidebar { background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%); min-height: 100vh; color: white; transition: all 0.3s; }
-        .sidebar .nav-link { color: rgba(255,255,255,.8); padding: 1rem; display: block; text-decoration: none; display: flex; align-items: center; }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active { color: #fff; font-weight: 700; background-color: rgba(255,255,255,0.1); }
-        .sidebar .brand { padding: 1.5rem 1rem; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; text-align: center; color: white; text-decoration: none; display: block; letter-spacing: 0.05rem;}
-        .sidebar hr { border-top: 1px solid rgba(255,255,255,.15); margin: 0 1rem 1rem; opacity: 1; }
-        
-        /* Topbar & Content */
-        .main-content { width: 100%; display: flex; flex-direction: column; }
-        .topbar { background-color: #fff; box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15); height: 4.375rem; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; }
-        
-        /* Utilities */
-        .badge-counter { position: absolute; transform: scale(.7); transform-origin: top right; right: .25rem; margin-top: -.25rem; }
-        .img-profile { height: 2rem; width: 2rem; object-fit: cover; }
-        .cursor-pointer { cursor: pointer; }
+        /* Perbaikan bug overflow pada topbar */
+        .topbar {
+            overflow: visible !important;
+        }
+        .topbar .dropdown-list {
+            width: 20rem !important;
+        }
+        @media (max-width: 575.98px) {
+            .topbar .dropdown-list {
+                width: calc(100vw - 2rem) !important;
+            }
+        }
     </style>
+
 </head>
-<body>
-    <div class="d-flex">
-        <div class="sidebar d-flex flex-column p-0" style="width: 224px; flex-shrink: 0;">
-            <a href="/admin" class="brand">
-                <i class="fas fa-laugh-wink fa-2x rotate-n-15"></i> SB ADMIN <sup>2</sup>
-            </a>
-            <hr>
-            <a href="/admin" class="nav-link <?= (uri_string() == 'admin') ? 'active' : '' ?>">
-                <i class="fas fa-fw fa-tachometer-alt me-3"></i> Dashboard
-            </a>
-            <hr>
-            <div style="padding-left:1rem; font-size:0.65rem; font-weight:800; opacity:0.6; text-transform:uppercase; margin-bottom: 5px;">Interface</div>
-            <a href="/admin/produk" class="nav-link <?= (uri_string() == 'admin/produk') ? 'active' : '' ?>">
-                <i class="fas fa-fw fa-box-open me-3"></i> Product
-            </a>
-            <a href="#" class="nav-link js-placeholder-link">
-                <i class="fas fa-fw fa-chart-area me-3"></i> Charts
-            </a>
-            <a href="#" class="nav-link js-placeholder-link">
-                <i class="fas fa-fw fa-table me-3"></i> Tables
+
+<body id="page-top">
+
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('admin'); ?>">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Admin Toko</div>
             </a>
 
-            <div class="mt-auto mb-3 px-3">
-                <a href="/logout" class="btn btn-danger w-100 btn-sm">
-                    <i class="fas fa-sign-out-alt me-2"></i> Logout
-                </a>
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item <?= ($active == 'dashboard') ? 'active' : ''; ?>">
+                <a class="nav-link" href="<?= base_url('admin'); ?>">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Manajemen
             </div>
-        </div>
 
-        <div class="main-content">
-            <nav class="topbar mb-4">
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
+            <li class="nav-item <?= ($active == 'produk') ? 'active' : ''; ?>">
+                <a class="nav-link" href="<?= base_url('admin/produk'); ?>">
+                    <i class="fas fa-fw fa-box"></i>
+                    <span>Produk</span></a>
+            </li>
 
-                <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search">
-                        <button class="btn btn-primary js-search-btn" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Notifikasi
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">February 12, 2026</div>
+                                        <span class="font-weight-bold">Laporan stok baru telah diupdate!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Tampilkan Semua</a>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= session()->get('username'); ?></span>
+                                <img class="img-profile rounded-circle"
+                                    src="https://startbootstrap.github.io/startbootstrap-sb-admin-2/img/undraw_profile.svg">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?= base_url('logout'); ?>">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <div class="container-fluid">
+                    <?= $this->renderSection('content'); ?>
+                </div>
+                </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Toko Elektronik 2026</span>
                     </div>
                 </div>
-
-                <ul class="navbar-nav ms-auto align-items-center">
-                    
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle text-gray-600 js-alert-btn" href="#" role="button">
-                            <i class="fas fa-bell fa-fw text-secondary"></i>
-                            <span class="badge bg-danger badge-counter">3+</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle text-gray-600 js-message-btn" href="#" role="button">
-                            <i class="fas fa-envelope fa-fw text-secondary"></i>
-                            <span class="badge bg-danger badge-counter">7</span>
-                        </a>
-                    </li>
-
-                    <div class="topbar-divider d-none d-sm-block border-end mx-2" style="height: 2rem;"></div>
-
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                            <span class="mr-2 d-none d-lg-inline text-dark small me-2 fw-bold"><?= session()->get('username'); ?></span>
-                            <img class="img-profile rounded-circle" src="/uploads/user.jpg" alt="User">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow animated--grow-in">
-                            <li><a class="dropdown-item js-profile-btn" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item js-settings-btn" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400 me-2"></i> Settings</a></li>
-                            <li><a class="dropdown-item js-log-btn" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400 me-2"></i> Activity Log</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 me-2"></i> Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-
-            <div class="container-fluid">
-                <?= $this->renderSection('content'); ?>
+            </footer>
             </div>
         </div>
-    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        // Script Global untuk interaksi dummy
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // Tombol Search
-            const searchBtn = document.querySelector('.js-search-btn');
-            if(searchBtn) {
-                searchBtn.addEventListener('click', () => {
-                    Swal.fire('Searching...', 'Fitur pencarian sedang dalam pengembangan.', 'info');
-                });
-            }
+    <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/js/sb-admin-2.min.js"></script>
 
-            // Tombol Notifikasi (Lonceng & Pesan)
-            const alertBtns = document.querySelectorAll('.js-alert-btn, .js-message-btn');
-            alertBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    Swal.fire({
-                        title: 'Tidak ada notifikasi baru',
-                        text: 'Anda sudah membaca semua pesan.',
-                        icon: 'success',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                });
-            });
-
-            // Menu Profile Dummy
-            const profileLinks = document.querySelectorAll('.js-profile-btn, .js-settings-btn, .js-log-btn');
-            profileLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    Swal.fire('Akses Dibatasi', 'Anda tidak memiliki izin untuk mengubah pengaturan akun demo.', 'warning');
-                });
-            });
-
-            // Sidebar Dummy Links
-            const dummyLinks = document.querySelectorAll('.js-placeholder-link');
-            dummyLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    Swal.fire('Coming Soon', 'Modul ini akan tersedia pada update berikutnya.', 'question');
-                });
-            });
-
-            // Tombol Generate Report (Global Class)
-            const reportBtns = document.querySelectorAll('.js-report-btn');
-            reportBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    let timerInterval;
-                    Swal.fire({
-                        title: 'Generating Report...',
-                        html: 'Mohon tunggu <b></b> milliseconds.',
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: () => {
-                            Swal.showLoading();
-                            const b = Swal.getHtmlContainer().querySelector('b');
-                            timerInterval = setInterval(() => { b.textContent = Swal.getTimerLeft(); }, 100);
-                        },
-                        willClose: () => { clearInterval(timerInterval); }
-                    }).then((result) => {
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            Swal.fire('Berhasil!', 'Laporan PDF telah didownload (Simulasi).', 'success');
-                        }
-                    });
-                });
-            });
-        });
-    </script>
 </body>
+
 </html>
