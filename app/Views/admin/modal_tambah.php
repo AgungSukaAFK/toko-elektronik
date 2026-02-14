@@ -13,7 +13,7 @@
         <tr>
             <th>Thumbnail</th>
             <th>Produk</th> <th>Kategori</th> <th>Harga</th>
-            [cite_start]<th>Action [cite: 40]</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
