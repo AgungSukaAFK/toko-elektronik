@@ -17,9 +17,25 @@ class Admin extends BaseController
     
     public function index()
     {
+        $produk = $this->produkModel->orderBy('id', 'ASC')->findAll();
+
+        $produkLabels = array_map(static fn($item) => $item['produk'], $produk);
+        $produkHarga = array_map(static fn($item) => (int) $item['harga'], $produk);
+
+        $totalProduk = count($produk);
+        $totalNilaiProduk = array_sum($produkHarga);
+        $rataRataHarga = $totalProduk > 0 ? (int) round($totalNilaiProduk / $totalProduk) : 0;
+        $hargaTertinggi = $totalProduk > 0 ? max($produkHarga) : 0;
+
         $data = [
             'title' => 'Dashboard',
-            'active' => 'dashboard'
+            'active' => 'dashboard',
+            'produkLabels' => $produkLabels,
+            'produkHarga' => $produkHarga,
+            'totalProduk' => $totalProduk,
+            'totalNilaiProduk' => $totalNilaiProduk,
+            'rataRataHarga' => $rataRataHarga,
+            'hargaTertinggi' => $hargaTertinggi,
         ];
         return view('admin/dashboard', $data);
     }
